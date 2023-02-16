@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {computed, defineComponent, reactive, ref} from "vue";
+import {computed, defineComponent, ref, unref} from "vue";
 import { testLatency } from "src/utils/latency";
 
 export default defineComponent({
@@ -79,31 +79,31 @@ export default defineComponent({
         range: [-2, -2],
         color: "grey",
         icon: "",
-        text: () => "测量中..."
+        text: computed(() => "测量中...")
       },
       {
         range: [-1, -1],
-        color: "red",
+        color: "#f44336",
         icon: "",
-        text: () => "连接失败"
+        text: computed(() => "连接失败")
       },
       {
         range: [0, 300],
-        color: "green",
+        color: "#4caf50",
         icon: "signal_cellular_alt_3_bar",
-        text: () => `${averageLatency.value} ms`
+        text: computed(() => `${averageLatency.value} ms`)
       },
       {
         range: [301, 700],
-        color: "orange",
+        color: "#ff9800",
         icon: "signal_cellular_alt_2_bar",
-        text: () => `${averageLatency.value} ms`
+        text: computed(() => `${averageLatency.value} ms`)
       },
       {
         range: [701, Infinity],
-        color: "red",
+        color: "#f44336",
         icon: "signal_cellular_null",
-        text: () => `${averageLatency.value} ms`
+        text: computed(() => `${averageLatency.value} ms`)
       }
     ]
 
@@ -125,7 +125,7 @@ export default defineComponent({
       const result = testResultOption.find((item) => {
         return averageLatency.value >= item.range[0] && averageLatency.value <= item.range[1]
       })
-      return result.text()
+      return unref(result.text)
     })
 
     return {

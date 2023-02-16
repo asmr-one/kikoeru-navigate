@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {computed, defineComponent, ref, toRef, toRefs, unref} from "vue";
+import {computed, defineComponent, ref, unref} from "vue";
 import { testLatency } from "src/utils/latency";
 
 export default defineComponent({

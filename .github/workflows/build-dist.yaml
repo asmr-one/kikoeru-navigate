@@ -1,0 +1,38 @@
+name: Build and Publish
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  do-publish:
+    name: Quasar build and publish to pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: yarn install
+        run: yarn global add @quasar/cli && yarn
+
+      - name: quasar spa mode build
+        run: quasar build -m spa
+
+      - name: Publish
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages publish dist/spa/ --project-name=kikoeru-navigate
+
+#      - name: Push
+#        uses: s0/git-publish-subdir-action@develop
+#        env:
+#          REPO: self
+#          BRANCH: dist
+#          FOLDER: dist/spa
+#          GITHUB_TOKEN: ${{ secrets.PERSON_ACCESS_TOKEN }}

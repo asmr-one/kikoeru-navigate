@@ -5,9 +5,9 @@
       <q-item-label caption style="font-size: 15px">{{ caption }}</q-item-label>
     </q-item-section>
 
-    <q-item-section side>
-      <q-icon v-if="latencyIcon" style="display: inline-block" :color="latencyColor" :name="latencyIcon" />
-      <span v-if="latencyText" :style="{'color': latencyColor}"> {{ latencyText }} </span>
+    <q-item-section side :style="{'color': latencyColor}">
+      <q-icon v-if="latencyIcon" style="display: inline-block" :name="latencyIcon" />
+      <span v-if="latencyText"> {{ latencyText }} </span>
     </q-item-section>
   </q-item>
 </template>

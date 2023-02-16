@@ -47,6 +47,9 @@ export default defineComponent({
     // 测量结果
     const latency = ref([])
 
+    // 预热
+    testLatency(props.link).then()
+
     // 定时测量
     const interval = setInterval(() => {
       // 测量次数超过最大值，停止测量

@@ -5,15 +5,15 @@
       <q-item-label caption style="font-size: 15px">{{ caption }}</q-item-label>
     </q-item-section>
 
-    <q-item-section side :style="{'color': latencyColor}">
-      <q-icon v-if="latencyIcon" style="display: inline-block" :name="latencyIcon" />
-      <span v-if="latencyText"> {{ latencyText }} </span>
+    <q-item-section side :style="{'color': latencyResult.color}">
+      <q-icon v-if="latencyResult.icon" style="display: inline-block" :name="latencyResult.icon" />
+      <span v-if="latencyResult.text"> {{ latencyResult.text }} </span>
     </q-item-section>
   </q-item>
 </template>
 
 <script>
-import {computed, defineComponent, ref, unref} from "vue";
+import {computed, defineComponent, ref, toRef, toRefs, unref} from "vue";
 import { testLatency } from "src/utils/latency";
 
 export default defineComponent({
@@ -41,16 +41,12 @@ export default defineComponent({
   },
 
   setup(props) {
-    // 当前已测量的次数
-    let count = 0
-
-    // 测量结果
-    const latency = ref([])
-
     // 预热
     testLatency(props.link).then()
 
     // 定时测量
+    let count = 0
+    const latency = ref([])
     const interval = setInterval(() => {
       // 测量次数超过最大值，停止测量
       if (count > props.latencyTestMaxCount) { clearInterval(interval) }
@@ -60,6 +56,7 @@ export default defineComponent({
       })
     }, 1000)
 
+    // 计算平均值
     const averageLatency = computed(() => {
       // 如果没有值，返回 -2
       if (latency.value.length === 0) { return -2 }
@@ -74,6 +71,7 @@ export default defineComponent({
       return Math.round(filtered.reduce((a, b) => a + b, 0) / filtered.length)
     })
 
+    // 平均值对应的颜色、图标、文字
     const testResultOption = [
       {
         range: [-2, -2],
@@ -107,33 +105,17 @@ export default defineComponent({
       }
     ]
 
-    const latencyColor = computed(() => {
+    const latencyResult = computed(() => {
       const result = testResultOption.find((item) => {
         return averageLatency.value >= item.range[0] && averageLatency.value <= item.range[1]
       })
-      return result.color
-    })
-
-    const latencyIcon = computed(() => {
-      const result = testResultOption.find((item) => {
-        return averageLatency.value >= item.range[0] && averageLatency.value <= item.range[1]
-      })
-      return result.icon
-    })
-
-    const latencyText = computed(() => {
-      const result = testResultOption.find((item) => {
-        return averageLatency.value >= item.range[0] && averageLatency.value <= item.range[1]
-      })
-      return unref(result.text)
+      result.text = unref(result.text)
+      return result
     })
 
     return {
       latency,
-      averageLatency,
-      latencyColor,
-      latencyIcon,
-      latencyText
+      latencyResult
     }
   }
 });

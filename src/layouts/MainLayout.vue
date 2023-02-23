@@ -1,8 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
-<!--      <router-view />-->
-      <IndexPage />
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
@@ -13,9 +12,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "MainLayout",
 
-  components: {
-    'IndexPage': () => import("pages/IndexPage.vue")
-  },
+  components: { },
 
   setup() {
        return { };

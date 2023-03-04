@@ -18,7 +18,7 @@ function redirectIfNotRoot() {
     useMeta({
       meta: {
         "prerender-status-code": { name: "prerender-status-code", content: "301" },
-        "prerender-header": { name: "prerender-header", content: "Location: /" },
+        "prerender-header": { name: "prerender-header", content: "Location: " + window.location.href.replace("as.mr", "asmr.one") },
       },
     })
   } else {

@@ -13,9 +13,19 @@ import EssentialLink from "components/EssentialLink.vue";
 
 const links = [
   {
+    title: "asmr-300.com",
+    link: "https://asmr-300.com/",
+    caption: "移动可直链"
+  },
+  {
+    title: "asmr-200.com",
+    link: "https://asmr-200.com/",
+    caption: "好像有部分地区无法访问"
+  },
+  {
     title: "asmr-100.com",
     link: "https://asmr-100.com/",
-    caption: "移动可直链"
+    caption: "已被墙"
   },
   {
     title: "asmr.one",

@@ -15,22 +15,22 @@ const links = [
   {
     title: "asmr-300.com",
     link: "https://asmr-300.com/",
-    caption: "移动可直链"
+    caption: "移动墙、福建墙"
   },
   {
     title: "asmr-200.com",
     link: "https://asmr-200.com/",
-    caption: "好像有部分地区无法访问"
+    caption: "移动墙、福建墙"
   },
   {
     title: "asmr-100.com",
     link: "https://asmr-100.com/",
-    caption: "已被墙"
+    caption: "国内墙"
   },
   {
     title: "asmr.one",
     link: "https://asmr.one/",
-    caption: ""
+    caption: "移动墙、福建墙"
   }
 ]
 
